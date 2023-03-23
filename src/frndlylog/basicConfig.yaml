@@ -1,0 +1,23 @@
+formatters:
+  json:
+    (): "frndlylog.formatters.JsonFormatter"
+
+  default:
+    format: "%(asctime)s [%(levelname)-8s] (%(name)-15s) %(message)s"
+    datefmt: "%Y-%m-%d %H:%M:%S"
+
+handlers:
+  console:
+    class: "logging.StreamHandler"
+    formatter: "default"
+    level: "INFO"
+    stream: "ext://sys.stdout"
+
+  sqlite:
+    class: "frndlylog.handlers.Sqlite3Handler"
+    formatter: "default"
+    filename: "./var/log/log.db"
+
+loggers:
+  root:
+    handlers: ["console", "sqlite"]
